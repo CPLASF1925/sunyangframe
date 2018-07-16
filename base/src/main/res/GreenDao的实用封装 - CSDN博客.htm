@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/jamy2015/article/details/51744682"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="前面简单介绍了下GreenDao的使用，从前面的介绍看来是不是觉得有点 so easy。对就是这么简单。曾经有位大神说作为一位合格的程序员就要在学习别人的东西时，有点自己的想法。为了表示我是位比较合格的程序员，今天和大家介绍下GreenDao的比较实用的封装。如果您还没来得及学习greenDao的实用详解，请前往GreenDao的使用详解学习。长话短说我们正式开始介绍。首先我们新建两个表，分别是C" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>GreenDao的实用封装 - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-eba6097365.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-88717cedf2.min.css">
+
+    <script type="text/javascript">
+        var username = "jamy2015";
+        var blog_address = "https://blog.csdn.net/jamy2015";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = "qq_32450285"; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/jamy2015/article/details/51744682"
+        var blogUrl = "https://blog.csdn.net/";
+        //页面皮肤样式
+        var curSkin = "skin3-template";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.0.0/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script src="https://csdnimg.cn/public/sandalstrap/1.3/fonts/csdnc/csdnc.js"></script><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<div style="display:none;">
+	<img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+</div>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/chart-3456820cac.css" />
+
+
+<header>
+	<div class="container d-flex clearfix">
+		<div class="title-box">
+			<h2 class="title-blog">
+				<a href="https://blog.csdn.net/jamy2015">Jamy博客</a>
+			</h2>
+			<p class="description">不积跬步无以至千里，不积小流无以成江海</p>
+		</div>
+		<div class="opt-box d-flex justify-content-end">
+			<a class="btn btn-sm" href="https://blog.csdn.net/jamy2015/rss/list">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#csdnc-rss"></use>
+					</svg>RSS订阅</a>
+					</div>
+	</div>
+</header><script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix pt0" id="mainBox">
+    <main>
+        <div class="blog-content-box">
+	<div class="article-title-box">
+			<span class="article-type type-1 float-left">原</span>		<h1 class="title-article">GreenDao的实用封装</h1>
+	</div>
+	<div class="article-info-box">
+		<div class="article-bar-top d-flex">
+												<span class="time">2016年06月23日 16:27:28</span>
+			<div class="float-right">
+				<span class="read-count">阅读数：8209</span>
+											</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-e2445db1a8.css" />
+						<div class="htmledit_views">
+                
+<p><span style="font-size:18px;">       前面简单介绍了下GreenDao的使用，从前面的介绍看来是不是觉得有点 so easy。对就是这么简单。曾经有位大神说作为一位合格的程序员就要在学习别人的东西时，有点自己的想法。为了表示我是位比较合格的程序员，今天和大家介绍下GreenDao的比较实用的封装。如果您还没来得及学习greenDao的实用详解，请前往<a href="http://blog.csdn.net/jamy2015/article/details/51742039" rel="nofollow">GreenDao的使用详解</a>学习。长话短说我们正式开始介绍。首先我们新建两个表，分别是Customer和Student表。其生成的文件如下所示。</span></p>
+<p><span style="font-size:18px;"><img src="https://img-blog.csdn.net/20160623165220004" alt="" /></span></p>
+<p><span style="font-size:18px;"><span style="color:#ff0000;"> (一)封装下DaoMaster,DaoSession,DevOpenHelper对象</span></span></p>
+<p><span style="font-size:18px;"><span style="color:#ff0000;"><br /></span></span></p>
+<p><span style="font-size:18px;">其具体代码如DaoManager.java所示。</span></p>
+<p><span style="font-size:18px;"></span></p>
+<pre><code class="language-java">package com.jamy.DaoUtils;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.jamy.dao.DaoMaster;
+import com.jamy.dao.DaoSession;
+
+import de.greenrobot.dao.query.QueryBuilder;
+
+/**
+ * Created by jamy on 2016/6/16.
+ * 进行数据库的管理
+ * 1.创建数据库
+ * 2.创建数据库表
+ * 3.对数据库进行增删查改
+ * 4.对数据库进行升级
+ */
+public class DaoManager {
+    private static  final String   TAG = DaoManager.class.getSimpleName();
+    private static  final String  DB_NAME="jamy.db";//数据库名称
+    private volatile  static DaoManager mDaoManager;//多线程访问
+    private  static DaoMaster.DevOpenHelper mHelper;
+    private static  DaoMaster mDaoMaster;
+    private static DaoSession mDaoSession;
+    private static SQLiteDatabase db;
+    private Context context;
+
+    /**
+     * 使用单例模式获得操作数据库的对象
+     * @return
+     */
+    public  static DaoManager getInstance(){
+        DaoManager instance = null;
+        if (mDaoManager==null){
+            synchronized (DaoManager.class){
+                if (instance==null){
+                    instance = new DaoManager();
+                    mDaoManager = instance;
+                }
+            }
+        }
+        return mDaoManager;
+    }
+
+    /**
+     * 初始化Context对象
+     * @param context
+     */
+    public void init(Context context){
+        this.context = context;
+    }
+
+    /**
+     * 判断数据库是否存在，如果不存在则创建
+     * @return
+     */
+    public DaoMaster getDaoMaster(){
+        if (null == mDaoMaster){
+            mHelper =  new DaoMaster.DevOpenHelper(context,DB_NAME,null);
+            mDaoMaster = new DaoMaster(mHelper.getWritableDatabase());
+        }
+        return mDaoMaster;
+    }
+
+    /**
+     * 完成对数据库的增删查找
+     * @return
+     */
+    public DaoSession getDaoSession(){
+        if (null == mDaoSession){
+            if (null == mDaoMaster){
+                mDaoMaster = getDaoMaster();
+            }
+            mDaoSession = mDaoMaster.newSession();
+        }
+        return mDaoSession;
+    }
+
+    /**
+     * 设置debug模式开启或关闭，默认关闭
+     * @param flag
+     */
+    public void setDebug(boolean flag){
+        QueryBuilder.LOG_SQL = flag;
+        QueryBuilder.LOG_VALUES = flag;
+    }
+
+    /**
+     * 关闭数据库
+     */
+    public void closeDataBase(){
+        closeHelper();
+        closeDaoSession();
+    }
+
+    public void closeDaoSession(){
+        if (null != mDaoSession){
+            mDaoSession.clear();
+            mDaoSession = null;
+        }
+    }
+
+    public  void  closeHelper(){
+        if (mHelper!=null){
+            mHelper.close();
+            mHelper = null;
+        }
+    }
+
+}
+</code></pre>      <span style="font-size:18px;">  DaoManager主要是通过单列模式获取对应的对象，以及对所有的对象进行初始化。</span>
+<p></p>
+<p><span style="font-size:18px;"><br /></span></p>
+<p><span style="font-size:18px;color:#ff0000;">(二)封装一可操作不同数据表的公共基类</span></p>
+<p><span style="font-size:18px;">其集体代码BaseDao.java所示。</span></p>
+<p><span style="font-size:18px;"></span></p>
+<pre><code class="language-java">package com.jamy.DaoUtils;
+
+import android.content.Context;
+import android.util.Log;
+import com.jamy.dao.CustomerDao;
+import com.jamy.dao.DaoSession;
+import java.util.List;
+import de.greenrobot.dao.query.QueryBuilder;
+
+
+/**
+ * 将所有创建的表格相同的部分封装到这个BaseDao中
+ * Created by jamy on 16/6/16.
+ */
+public class BaseDao&lt;T&gt;{
+    public static final String TAG = BaseDao.class.getSimpleName();
+    public static final boolean DUBUG = true;
+    public DaoManager manager;
+    public DaoSession daoSession;
+
+    public BaseDao(Context context) {
+        manager = DaoManager.getInstance();
+        manager.init(context);
+        daoSession = manager.getDaoSession();
+        manager.setDebug(DUBUG);
+    }
+
+    /**************************数据库插入操作***********************/
+    /**
+     * 插入单个对象
+     * @param object
+     * @return
+     */
+    public boolean insertObject(T object){
+        boolean flag = false;
+        try {
+            flag = manager.getDaoSession().insert(object) != -1 ? true:false;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        return flag;
+    }
+
+    /**
+     * 插入多个对象，并开启新的线程
+     * @param objects
+     * @return
+     */
+    public boolean insertMultObject(final List&lt;T&gt; objects){
+        boolean flag = false;
+        if (null == objects || objects.isEmpty()){
+            return false;
+        }
+        try {
+            manager.getDaoSession().runInTx(new Runnable() {
+                @Override
+                public void run() {
+                    for (T object : objects) {
+                        manager.getDaoSession().insertOrReplace(object);
+                    }
+                }
+            });
+            flag = true;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+            flag = false;
+        }finally {
+//            manager.CloseDataBase();
+        }
+        return flag;
+    }
+
+    /**************************数据库更新操作***********************/
+    /**
+     * 以对象形式进行数据修改
+     * 其中必须要知道对象的主键ID
+     * @param object
+     * @return
+     */
+    public void  updateObject(T object){
+
+        if (null == object){
+            return ;
+        }
+        try {
+            manager.getDaoSession().update(object);
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+    }
+
+    /**
+     * 批量更新数据
+     * @param objects
+     * @return
+     */
+    public void updateMultObject(final List&lt;T&gt; objects, Class clss){
+        if (null == objects || objects.isEmpty()){
+            return;
+        }
+        try {
+
+            daoSession.getDao(clss).updateInTx(new Runnable() {
+                @Override
+                public void run() {
+                    for(T object:objects){
+                        daoSession.update(object);
+                    }
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+    }
+
+
+    /**************************数据库删除操作***********************/
+    /**
+     * 删除某个数据库表
+     * @param clss
+     * @return
+     */
+    public boolean deleteAll(Class clss){
+        boolean flag = false;
+        try {
+            manager.getDaoSession().deleteAll(clss);
+            flag = true;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+            flag = false;
+        }
+        return flag;
+    }
+
+    /**
+     * 删除某个对象
+     * @param object
+     * @return
+     */
+    public void deleteObject(T object){
+        try {
+            daoSession.delete(object);
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+    }
+
+    /**
+     * 异步批量删除数据
+     * @param objects
+     * @return
+     */
+    public boolean deleteMultObject(final List&lt;T&gt; objects, Class clss){
+        boolean flag = false;
+        if (null == objects || objects.isEmpty()){
+            return false;
+        }
+        try {
+
+            daoSession.getDao(clss).deleteInTx(new Runnable() {
+                @Override
+                public void run() {
+                    for(T object:objects){
+                        daoSession.delete(object);
+                    }
+                }
+            });
+            flag = true;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+            flag = false;
+        }
+        return flag;
+    }
+
+    /**************************数据库查询操作***********************/
+
+    /**
+     * 获得某个表名
+     * @return
+     */
+    public String getTablename(Class object){
+        return daoSession.getDao(object).getTablename();
+    }
+
+    /**
+     * 查询某个ID的对象是否存在
+     * @param
+     * @return
+     */
+    public boolean isExitObject(long id,Class object){
+        QueryBuilder&lt;T&gt; qb = (QueryBuilder&lt;T&gt;) daoSession.getDao(object).queryBuilder();
+        qb.where(CustomerDao.Properties.Id.eq(id));
+        long length = qb.buildCount().count();
+        return length&gt;0 ? true:false;
+    }
+
+    /**
+     * 根据主键ID来查询
+     * @param id
+     * @return
+     */
+    public T QueryById(long id,Class object){
+        return (T) daoSession.getDao(object).loadByRowId(id);
+    }
+
+    /**
+     * 查询某条件下的对象
+     * @param object
+     * @return
+     */
+    public List&lt;T&gt; QueryObject(Class object,String where,String...params){
+        Object obj = null;
+        List&lt;T&gt; objects = null;
+        try {
+            obj = daoSession.getDao(object);
+            if (null == obj){
+                return null;
+            }
+            objects = daoSession.getDao(object).queryRaw(where,params);
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+
+        return objects;
+    }
+    /**
+     * 查询所有对象
+     * @param object
+     * @return
+     */
+    public List&lt;T&gt; QueryAll(Class object){
+        List&lt;T&gt; objects = null;
+        try {
+            objects = (List&lt;T&gt;) daoSession.getDao(object).loadAll();
+        } catch (Exception e) {
+            Log.e(TAG,e.toString());
+        }
+        return objects;
+    }
+
+    /***************************关闭数据库*************************/
+    /**
+     * 关闭数据库一般在Odestory中使用
+     */
+    public void CloseDataBase(){
+        manager.closeDataBase();
+    }
+
+
+}
+</code></pre><span style="color:#ff0000;"><span style="font-size:18px;">(三)让不同的数据表对象继承BaseDao</span></span>
+<p></p>
+<p><span style="font-size:18px;">其具体代码如StudentManager.java以及CustomerManager.java所示(由于本Demo中这两个Manager比较类似，所以只展示StudentManager.java)。</span></p>
+<p><span style="font-size:18px;"></span></p>
+<pre><code class="language-java">package com.jamy.DaoUtils;
+
+import android.content.Context;
+
+import com.jamy.dao.CustomerDao;
+import com.jamy.entity.Customer;
+import com.jamy.entity.Student;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import de.greenrobot.dao.query.QueryBuilder;
+
+/**
+ * Created by jamy on 16/6/16.
+ * 在这个类中添加不同的查询条件
+ */
+public class StudentManager extends BaseDao&lt;Student&gt;{
+    public StudentManager(Context context) {
+        super(context);
+    }
+
+    /***************************数据库查询*************************/
+
+    /**
+     * 通过ID查询对象
+     * @param id
+     * @return
+     */
+    private Student loadById(long id){
+
+       return daoSession.getStudentDao().load(id);
+    }
+
+    /**
+     * 获取某个对象的主键ID
+     * @param student
+     * @return
+     */
+    private long getID(Student student){
+
+        return daoSession.getStudentDao().getKey(student);
+    }
+
+    /**
+     * 通过名字获取Customer对象
+     * @return
+     */
+    private List&lt;Student&gt; getStudentByName(String key){
+        QueryBuilder queryBuilder =  daoSession.getStudentDao().queryBuilder();
+        queryBuilder.where(CustomerDao.Properties.Name.eq(key));
+        int size = queryBuilder.list().size();
+        if (size &gt; 0){
+            return queryBuilder.list();
+        }else{
+            return null;
+        }
+    }
+
+    /**
+     * 通过名字获取Customer对象
+     * @return
+     */
+    private List&lt;Long&gt; getIdByName(String key){
+        List&lt;Student&gt; students = getStudentByName(key);
+        List&lt;Long&gt; ids = new ArrayList&lt;Long&gt;();
+        int size = students.size();
+        if (size &gt; 0){
+            for (int i = 0;i &lt; size;i++){
+                ids.add(students.get(i).getId());
+            }
+            return ids;
+        }else{
+            return null;
+        }
+    }
+
+    /***************************数据库删除*************************/
+
+    /**
+     * 根据ID进行数据库的删除操作
+     * @param id
+     */
+    private void deleteById(long id){
+
+        daoSession.getStudentDao().deleteByKey(id);
+    }
+
+
+    /**
+     * 根据ID同步删除数据库操作
+     * @param ids
+     */
+    private void deleteByIds(List&lt;Long&gt; ids){
+
+        daoSession.getStudentDao().deleteByKeyInTx(ids);
+    }
+
+    /***********************************
+     * 在次添加一些Student特有的数据库操作语句
+     * ************************************/
+
+}
+</code></pre><span style="font-size:18px;">针对不同的数据表可以将一些特有的查询条件放在StudentManager类中(因为不同的数据表可能需要的查询条件不近相同)，这样方便查询。</span>
+<p></p>
+<p><span style="font-size:18px;color:#ff0000;">(四)将已创建的多表Manager对象封装在一个类</span></p>
+<p><span style="font-size:18px;">其具体代码如DaoUtils.java所示。</span></p>
+<p><span style="font-size:18px;"></span></p>
+<pre><code class="language-java">package com.jamy.DaoUtils;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.jamy.dao.CustomerDao;
+import com.jamy.dao.DaoSession;
+import com.jamy.dao.StudentDao;
+import com.jamy.entity.Customer;
+import com.jamy.entity.Student;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import de.greenrobot.dao.AbstractDao;
+import de.greenrobot.dao.query.QueryBuilder;
+
+
+/**
+ * Created by jinfangmei on 2016/6/16.
+ */
+public class DaoUtils{
+    private  static CustomerManager customerManager;
+    private  static StudentManager studentManager;
+    public  static Context context;
+
+    public static void init(Context context){
+        DaoUtils.context = context.getApplicationContext();
+    }
+
+    /**
+     * 单列模式获取CustomerManager对象
+     * @return
+     */
+    public static CustomerManager getCustomerInstance(){
+        if (customerManager == null) {
+            customerManager = new CustomerManager(context);
+        }
+        return customerManager;
+    }
+
+    /**
+     * 单列模式获取StudentManager对象
+     * @return
+     */
+    public static StudentManager getStudentInstance(){
+        if (studentManager == null) {
+            studentManager = new StudentManager(context);
+        }
+        return studentManager;
+    }
+}
+</code></pre>   <span style="color:#ff0000;">  <span style="font-size:18px;">上面有一点需注意，由于在DaoUtils中的Context是由static修饰，所以这里的context要用ApplicationContext(防止Activity被结束而造成内存泄漏)。</span></span><span style="font-size:18px;"><br />
+     上面的一步步封装已经完成，下面在MainActivity中调用试试好不好用。哈哈。</span>
+<p></p>
+<p><span style="font-size:18px;">      MainActivity.java的具体代码如下所示。</span></p>
+<p><span style="font-size:18px;"></span></p>
+<pre><code class="language-java">package com.jamy.testgreendao;
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import com.jamy.DaoUtils.DaoUtils;
+import com.jamy.entity.Customer;
+import com.jamy.entity.Student;
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+    private Button mAddButton;
+    public Button mDeleteButton,mUpdateButton,mQueryButton;
+    private List&lt;Object&gt; students;
+    private List&lt;Customer&gt; customers;
+    private Context context;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        initView();
+        DaoUtils.init(MainActivity.this);
+
+    }
+
+    private void initView() {
+        customers = new ArrayList&lt;Customer&gt;();
+        students  = new ArrayList&lt;Object&gt;();
+        mAddButton = (Button) findViewById(R.id.addbutton);
+        mDeleteButton = (Button) findViewById(R.id.deletebutton);
+        mUpdateButton = (Button) findViewById(R.id.uodatebutton);
+        mQueryButton = (Button) findViewById(R.id.queryButton);
+        mAddButton.setOnClickListener(this);
+        mDeleteButton.setOnClickListener(this);
+        mUpdateButton.setOnClickListener(this);
+        mQueryButton.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+      switch (v.getId()){
+          case R.id.addbutton:
+              for (int i=0;i&lt;4;i++){
+                  Student student = new Student();
+                  student.setName("jamy");
+                  student.setAge(110+i);
+                  student.setDepartment("A1113"+i);
+                  students.add(student);
+              }
+              for (int i=0;i&lt;4;i++){
+                  Customer customer = new Customer();
+                  customer.setName("jin"+i);
+                  customer.setAddress("shenzhen"+i);
+                  customer.setType("CEO");
+                  customers.add(customer);
+              }
+              DaoUtils.getCustomerInstance().insertMultObject(customers);
+              break;
+          case R.id.deletebutton:
+              DaoUtils.getCustomerInstance().deleteByIds(DaoUtils.getCustomerInstance().getIdByName("jin2"));
+
+              break;
+          case R.id.queryButton:
+             List&lt;Customer&gt; list = DaoUtils.getCustomerInstance().QueryAll(Customer.class);
+              for (int i=0;i&lt;list.size();i++){
+                  Customer customer = list.get(i);
+                  Log.d("JAMY","id:"+customer.getId()+" name:"+customer.getName()
+                          +"  Address:"+customer.getAddress()+"  Type:"+customer.getType());
+              }
+
+              break;
+          case R.id.uodatebutton:
+
+              Customer customer = new Customer();
+              customer.setId(1l);
+              customer.setName("jinfangmei");
+              customer.setType("CEO");
+              customer.setAddress("shenzhen0");
+              DaoUtils.getCustomerInstance().updateObject(customer);
+//              if (null != customers){
+//                  for (int i=0;i&lt;customers.size();i++){
+//                      Log.d("JAMY",customers.get(i).getId().toString());
+//                  }
+//              }
+//              List&lt;Long&gt; ids = daoUtils.getIdByKey("jin1");
+//              Log.d("JAMY",ids.toString());
+              break;
+      }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DaoUtils.getCustomerInstance().CloseDataBase();
+    }
+}
+</code></pre><span style="font-size:18px;"><br />
+好了，调用了下，感觉还是不错的。虽说不是很完美，但最起码凑合凑合能用。以上就是鄙人对GreenDao进行的一些简单的封装，知道还不是很完善，希望各位多给批评建议，没有你们的建议就没有我的逐步成长。两篇博客搞定，哈哈。</span>
+<p></p>
+<p><span style="font-size:18px;"><br /></span></p>
+<p><span style="font-size:18px;"><br /></span></p>
+<p><span style="font-size:18px;"><br /></span></p>
+<p><span style="font-size:18px;"><br /></span></p>
+<p><span style="font-size:18px;"><br /><br /></span></p>
+<p><span style="font-size:18px;"><br /></span></p>
+<p><span style="font-size:18px;"><br /></span></p>
+<p><span style="font-size:18px;">  </span></p>
+            </div>
+                </div>
+			</article>
+	
+		<div class="article-bar-bottom">
+				<div class="article-copyright">
+			版权声明：本文为博主原创文章，未经博主允许不得转载。			https://blog.csdn.net/Jamy2015/article/details/51744682		</div>
+								<div class="tags-box">
+			<span class="label">个人分类：</span>
+						<a class="tag-link" href="https://blog.csdn.net/jamy2015/article/category/6178856"  target="_blank">Android技术开发						</a>
+		</div>
+							</div>
+	
+	<!-- !empty($pre_next_article[0]) -->
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+			"HTML-CSS": {
+					linebreaks: { automatic: true, width: "94%container" },
+					imageFont: null
+			},
+			tex2jax: {
+				preview: "none"
+			},
+			mml2jax: {
+				preview: 'none'
+			}
+	});
+</script>
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>        <div class="t0 clearfix">
+                                                <a href="https://blog.csdn.net/xy8199/article/details/78690545" target="_blank" data-track-view='{"mod":"popu_642","con": ",https://blog.csdn.net/xy8199/article/details/78690545,"}' data-track-click='{"mod":"popu_642","con": ",https://blog.csdn.net/xy8199/article/details/78690545,"}'>
+                                                    <div class="text-content">
+                                                        <h4>Android——<em>Greendao</em><em>封装</em>进行</h4>
+                                                        <div class="description">关于GreenDao
+greenDao是一个将对象映射到SQLite数据库中的轻量且快速的ORM解决方案。
+关于greenDAO的概念可以看官网greenDAO
+
+greenDAO 优势
+...</div>
+                                                    </div>
+                                                </a>
+                                            </div>        <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="comment-edit-box d-flex">
+		<a id="commentsedit"></a>
+		<div class="user-img">
+			<img src="https://avatar.csdn.net/1/7/2/3_qq_32450285.jpg">
+		</div>
+		<form id="commentform">
+			<input type="hidden" id="comment_replyId">
+			<textarea class="comment-content" name="comment_content" id="comment_content" placeholder="想对作者说点什么"></textarea>
+			<div class="opt-box"> <!-- d-flex -->
+				<div id="ubbtools" class="add_code">
+					<a href="#insertcode" code="code" target="_self"><i class="icon iconfont icon-daima"></i></a>
+				</div>
+				<input type="hidden" id="comment_replyId" name="comment_replyId">
+				<input type="hidden" id="comment_userId" name="comment_userId" value="">
+				<input type="hidden" id="commentId" name="commentId" value="">
+				<div style="display: none;" class="csdn-tracking-statistics tracking-click" data-mod="popu_384"><a href="#" target="_blank" class="comment_area_btn">发表评论</a></div>
+				<div class="dropdown" id="myDrap">
+					<a class="dropdown-face d-flex align-items-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<div class="txt-selected text-truncate">添加代码片</div>
+					<svg class="icon d-block" aria-hidden="true">
+						<use xlink:href="#csdnc-triangledown"></use>
+					</svg>
+					</a>
+					<ul class="dropdown-menu" id="commentCode" aria-labelledby="drop4">
+						<li><a data-code="html">HTML/XML</a></li>
+						<li><a data-code="objc">objective-c</a></li>
+						<li><a data-code="ruby">Ruby</a></li>
+						<li><a data-code="php">PHP</a></li>
+						<li><a data-code="csharp">C</a></li>
+						<li><a data-code="cpp">C++</a></li>
+						<li><a data-code="javascript">JavaScript</a></li>
+						<li><a data-code="python">Python</a></li>
+						<li><a data-code="java">Java</a></li>
+						<li><a data-code="css">CSS</a></li>
+						<li><a data-code="sql">SQL</a></li>
+						<li><a data-code="plain">其它</a></li>
+					</ul>
+				</div>  
+				<div class="right-box">
+					<span id="tip_comment" class="tip">还能输入<em>1000</em>个字符</span>
+					<input type="submit" class="btn btn-sm btn-red btn-comment" value="发表评论">
+				</div>
+			</div>
+		</form>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/coderLei/article/details/80867040,BlogCommendFromBaidu_1"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/coderLei/article/details/80867040,BlogCommendFromBaidu_1"}'>
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/coderLei/article/details/80867040" target="_blank">
+				<em>GreenDao</em>教程(1)：配置流程			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/coderLei/article/details/80867040" target="_blank" >
+				一、GreenDao 简介GreenDAO 是一款开源的面向 Android 的轻便、快捷的 ORM 框架，将 Java 对象映射到 SQLite  数据库中，我们操作数据库的时候，不在需要编写复杂的...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/coderLei" title="coderLei" target="_blank">
+					<img src="https://avatar.csdn.net/2/0/3/3_coderlei.jpg" alt="coderLei" class="avatar-pic">
+					<span class="name">coderLei</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-06-30 15:33:59</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：15</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/sinat_15877283/article/details/51098477,BlogCommendFromBaidu_2"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sinat_15877283/article/details/51098477,BlogCommendFromBaidu_2"}'>
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/sinat_15877283/article/details/51098477" target="_blank">
+				<em>封装</em>篇——DataBase 数据库整理（<em>greenDao</em>示例）			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/sinat_15877283/article/details/51098477" target="_blank" >
+				今天心情烦躁，一直在想着怎么起本篇博文的开头… 
+之前有在做一个即时通讯的功能，既然是即时通讯吧，那么就需要存储数据在本地咯，所以就有了关于数据库使用的一个简单封装，今天抽空整理了一下思路，故而有了本...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/sinat_15877283" title="sinat_15877283" target="_blank">
+					<img src="https://avatar.csdn.net/D/5/E/3_sinat_15877283.jpg" alt="sinat_15877283" class="avatar-pic">
+					<span class="name">sinat_15877283</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-04-08 17:43:35</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：6039</span>
+			</p>
+		</div>
+	</div>
+									<div class="recommend-item-box recommend-ad-box" id="ad1"></div>
+				<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+					NEWS_FEED({
+						w: width,
+						h : 90,
+						showid : 'GNKXx7',
+						placeholderId: "ad1",
+						inject : 'define',
+						define : {
+							imagePosition : 'left',
+							imageBorderRadius : 0,
+							imageWidth: 120,
+							imageHeight: 90,
+							imageFill : 'clip',
+							displayImage : true,
+							displayTitle : true,
+							titleFontSize: 20,
+							titleFontColor: '#333',
+							titleFontFamily : 'Microsoft Yahei',
+							titleFontWeight: 'bold',
+							titlePaddingTop : 0,
+							titlePaddingRight : 0,
+							titlePaddingBottom : 10,
+							titlePaddingLeft : 16,
+							displayDesc : true,
+							descFontSize: 14,
+							descPaddingLeft: 14,
+							descFontColor: '#6b6b6b',
+							descFontFamily : 'Microsoft Yahei',
+							paddingTop : 0,
+							paddingRight : 0,
+							paddingBottom : 0,
+							paddingLeft : 0,
+							backgroundColor: '#fff',
+							hoverColor: '#ca0c16'
+						}
+					})
+				</script>
+
+			
+				<div class="recommend-item-box" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/FlyPig_Vip/article/details/80617375,BlogCommendFromBaidu_3"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/FlyPig_Vip/article/details/80617375,BlogCommendFromBaidu_3"}'>
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/FlyPig_Vip/article/details/80617375" target="_blank">
+				<em>GreenDao</em>完美破！			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/FlyPig_Vip/article/details/80617375" target="_blank" >
+				嗯，最近被GreenDao这么坏了。嗯。我邻居还在唱歌。我真想迪达拉一个嗯爆死她。GreenDao 最近炸了俩次 都是在修改实体类的时候炸的。 //greendao依赖
+    compile 'or...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/FlyPig_Vip" title="FlyPig_Vip" target="_blank">
+					<img src="https://avatar.csdn.net/5/6/B/3_flypig_vip.jpg" alt="FlyPig_Vip" class="avatar-pic">
+					<span class="name">FlyPig_Vip</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-06-08 01:05:08</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：19</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/tysj78/article/details/80834395,BlogCommendFromBaidu_4"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/tysj78/article/details/80834395,BlogCommendFromBaidu_4"}'>
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/tysj78/article/details/80834395" target="_blank">
+				<em>greendao</em>3.2.0使用方法（超详细）			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/tysj78/article/details/80834395" target="_blank" >
+				greendao是greenrobot组织出品的一款操作android自带数据库sqlite的框架使用环境：as版本3.12(低版本配置greendao方法有所不同)1.配置《module的gradl...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/tysj78" title="tysj78" target="_blank">
+					<img src="https://avatar.csdn.net/A/F/C/3_tysj78.jpg" alt="tysj78" class="avatar-pic">
+					<span class="name">tysj78</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-06-27 20:17:35</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：20</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zheweixingzhang/article/details/52497774,BlogCommendFromBaidu_5"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zheweixingzhang/article/details/52497774,BlogCommendFromBaidu_5"}'>
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/zheweixingzhang/article/details/52497774" target="_blank">
+				<em>GreenDao</em>数据库框架 最精简使用教程 并对其进行简单<em>封装</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/zheweixingzhang/article/details/52497774" target="_blank" >
+				GreenDao框架的使用步骤:(android studio)1.首先在project的build.gradle下进行添加如下依赖:dependencies {
+    classpath 'org...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/zheweixingzhang" title="zheweixingzhang" target="_blank">
+					<img src="https://avatar.csdn.net/C/1/3/3_zheweixingzhang.jpg" alt="zheweixingzhang" class="avatar-pic">
+					<span class="name">zheweixingzhang</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-09-10 23:08:22</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2884</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/baidu_38477614/article/details/78737884,BlogCommendFromBaidu_6"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/baidu_38477614/article/details/78737884,BlogCommendFromBaidu_6"}'>
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/baidu_38477614/article/details/78737884" target="_blank">
+				技术共享之数据库框架<em>GreenDao</em>的使用以及二次<em>封装</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/baidu_38477614/article/details/78737884" target="_blank" >
+				greendao 框架是一款ORM 数据库框架，ORM也就是对象关系映射。 相比其他数据库框架与原生的sql语句相比
+         好处：1、一个精简的库
+              2、性能最大...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/baidu_38477614" title="baidu_38477614" target="_blank">
+					<img src="https://avatar.csdn.net/3/7/A/3_baidu_38477614.jpg" alt="baidu_38477614" class="avatar-pic">
+					<span class="name">baidu_38477614</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-12-07 15:56:45</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：316</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 90,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'left',
+						imageBorderRadius: 0,
+						imageWidth: 120,
+						imageHeight: 90,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 16,
+						displayDesc: true,
+						descFontSize: 14,
+						descPaddingLeft: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+				<div class="recommend-item-box recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/justfaceme/9637177,BlogCommendFromBaidu_7"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/justfaceme/9637177,BlogCommendFromBaidu_7"}'>
+			<div class="content float-left">
+				<h4 class="text-truncate">
+					<a href="https://download.csdn.net/download/justfaceme/9637177" target="_blank">
+						<em>GreenDao</em> <em>封装</em>					</a>
+				</h4>
+				<p>
+					<span class="data">2016年09月22日 </span>
+					<span class="size">6.38MB</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-right">
+				<a href="https://download.csdn.net/download/justfaceme/9637177" target="_blank" strategy="BlogCommendFromBaidu_7">
+					<img src="https://csdnimg.cn/release/download/old_static/images/minetype/rar.svg" alt="">
+				</a>
+			</div>
+		</div>
+					<div class="recommend-item-box" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/King1425/article/details/53446030,BlogCommendFromBaidu_8"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/King1425/article/details/53446030,BlogCommendFromBaidu_8"}'>
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/King1425/article/details/53446030" target="_blank">
+				<em>GreenDao</em><em>封装</em>使用			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/King1425/article/details/53446030" target="_blank" >
+				case R.id.add:   //添加数据
+            Person item=new Person(null,&quot;wang&quot;,&quot;18&quot;);
+            PersonHelp...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/King1425" title="King1425" target="_blank">
+					<img src="https://avatar.csdn.net/B/B/8/3_king1425.jpg" alt="King1425" class="avatar-pic">
+					<span class="name">King1425</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-12-03 17:07:19</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1384</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_30379689/article/details/54410838,BlogCommendFromBaidu_9"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_30379689/article/details/54410838,BlogCommendFromBaidu_9"}'>
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/qq_30379689/article/details/54410838" target="_blank">
+				Android实战——<em>GreenDao</em>3.2的使用，爱不释手			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/qq_30379689/article/details/54410838" target="_blank" >
+				GreenDao3.2的使用，爱不释手
+  本篇文章包括以下内容：
+  
+  
+  前言
+  GreenDao3.2的简介
+  GreenDao3.2的配置
+  GreenDao3.2的使用
+  结语...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/qq_30379689" title="qq_30379689" target="_blank">
+					<img src="https://avatar.csdn.net/D/0/2/3_qq_30379689.jpg" alt="qq_30379689" class="avatar-pic">
+					<span class="name">qq_30379689</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-01-13 23:43:16</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：19379</span>
+			</p>
+		</div>
+	</div>
+			
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/jamy2015">
+                <img src="https://avatar.csdn.net/8/D/5/3_jamy2015.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/jamy2015" target="_blank" class="text-truncate" id="uid">jamy2015</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" id="btnAttent">关注</a>
+                            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="10">
+                        <dt><a href="https://blog.csdn.net/jamy2015?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/jamy2015?t=1"><span class="count">10</span></a></dd>
+                    </dl>
+        <dl class="text-center" title="7">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">7</span></dd>
+        </dl>
+        <dl class="text-center" title="3">
+            <dt>喜欢</dt>
+            <dd><span class="count">3</span></dd>
+        </dl>
+        <dl class="text-center" title="19">
+            <dt>评论</dt>
+            <dd><span class="count">19</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="3级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-3"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="69590">
+                6万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="656">
+                656            </dd>
+        </dl>
+        <dl title="82605">
+            <dt>排名：</dt>
+            <dd>8万+</dd>
+        </dl>
+    </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>
+    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/Jamy2015/article/details/65935525" target="_blank">java反射你知多少</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/Jamy2015/article/details/52237913" target="_blank">Ignoring InnerClasses attribute for an anonymous inner class问题解决</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/Jamy2015/article/details/51742039" target="_blank">GreenDao的使用详解</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/Jamy2015/article/details/51577382" target="_blank">带你一起瞧瞧自定义属性以及自定义View的使用</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/Jamy2015/article/details/51491353" target="_blank">带你玩转Eclipse项目转成AndroidStudio项目</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    <div id="asideCategory" class="aside-box">
+    <h3 class="aside-title">个人分类</h3>
+    <div class="aside-content">
+        <ul>
+                        <li>
+                <a href="https://blog.csdn.net/jamy2015/article/category/6178856">
+                    Android技术开发                    <span class="count float-right">10篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+    </div>
+		    <div id="asideArchive" class="aside-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jamy2015/article/month/2017/03">
+                    2017年3月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jamy2015/article/month/2016/08">
+                    2016年8月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jamy2015/article/month/2016/06">
+                    2016年6月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jamy2015/article/month/2016/05">
+                    2016年5月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jamy2015/article/month/2016/04">
+                    2016年4月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/jamy2015/article/details/51131583">ExpandableListView的使用详解</a>
+					<p class="read">阅读量：<span>20162</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/jamy2015/article/details/51491353">带你玩转Eclipse项目转成AndroidStudio项目</a>
+					<p class="read">阅读量：<span>14651</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/jamy2015/article/details/52237913">Ignoring InnerClasses attribute for an anonymous inner class问题解决</a>
+					<p class="read">阅读量：<span>12160</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/jamy2015/article/details/51744682">GreenDao的实用封装</a>
+					<p class="read">阅读量：<span>8204</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/jamy2015/article/details/51188509">App跳转到与手机版QQ公众服务号聊天界面</a>
+					<p class="read">阅读量：<span>6174</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/jamy2015/article/details/52237913#comments">Ignoring InnerCla...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq_15080205" class="user-name" target="_blank">qq_15080205</a>：clean之后同样出现这样的问题，亲试没用...                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/jamy2015/article/details/51131583#comments">ExpandableListVie...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/G_Joners" class="user-name" target="_blank">G_Joners</a>：关child二级菜单点击过快导致崩溃，提示说内容为空有没有解决方法                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/jamy2015/article/details/51131583#comments">ExpandableListVie...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq_38969990" class="user-name" target="_blank">qq_38969990</a>：StrBean和memBean这是什么啊，自定义实体类么？                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/jamy2015/article/details/51744682#comments">GreenDao的实用封装</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq_14953495" class="user-name" target="_blank">qq_14953495</a>：DaoUtils.getUserManager().CloseDataBase(); 调用之后退出...                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/jamy2015/article/details/52237913#comments">Ignoring InnerCla...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq_38747676" class="user-name" target="_blank">qq_38747676</a>：[reply]imyfriend[/reply]
+兄弟  你的问题解决了么？                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/avneunkwb.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like liked" title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>2</p>
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="写评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>写评论			</a>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 9;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = "GreenDao的实用封装";
+    var ChannelId = 1;
+    var articleId = "51744682";
+    var commentscount = 2;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/jamy2015/article/details/51744682";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "greendao+%E5%B0%81%E8%A3%85";
+    var needInsertBaidu = true;
+    // 代码段样式
+    var codeStyle = '';
+    var highlight = ["greendao","\u5b9e\u7528","\u5c01\u88c5"];//高亮数组
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,"GreenDao的实用封装");
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-bd54b21308.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-e0d3bbff39.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-46c7bd3d86.min.js"></script>
+<script src="https://csdnimg.cn/search/baidu_search-1.1.2.js?v=201802071056&autorun=true&install=true&keyword=greendao+%E5%B0%81%E8%A3%85"  type="text/javascript"></script>
+</body>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+<!-- 第四范式SDK -->
+<script src="https://nbrecsys.4paradigm.com/resource/js/sdk-csdn-smallflow.prod.js" async defer></script>
+
+<!-- 高亮未与 markdown兼容  -->
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.1.10/ckeditor/plugins/chart/chart.css" />
+	<script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.1.10/ckeditor/plugins/chart/lib/chart.min.js"></script>
+	<script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.1.10/ckeditor/plugins/chart/widget2chart.js"></script>
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.1.10/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-dark.css">
+	<script type="text/javascript" src="https://csdnimg.cn/release/phoenix/production/pc_wap_common-7a8eae9934.js" /></script>
+
+<script type="text/javascript">
+$(function(){
+  hljs.initHighlightingOnLoad();
+  hljs.initCopyButtonOnLoad();
+  hljs.initLineNumbersOnLoad();
+	if($('pre .language-plain').length>0){
+		$('pre .language-plain').each(function(i,e){
+			var highlightRe = hljs.highlightAuto(e.innerHTML)
+			e.innerHTML =highlightRe.value;
+			e.className = 'language-'+highlightRe.language;
+		});
+	}
+})
+</script>
+</html>

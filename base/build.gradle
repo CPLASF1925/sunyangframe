@@ -1,0 +1,204 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.greenrobot.greendao'
+android {
+    compileSdkVersion 27
+    tasks.withType(Javadoc) {
+
+        options.encoding = "UTF-8"  // 避免GBK编码格式错误
+
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    greendao {
+        schemaVersion 1
+        daoPackage 'com.bril.base.database.gen'
+        targetGenDir 'src/main/java'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api rootProject.ext.dependencies["design"]
+    api(rootProject.ext.dependencies["cardview-v7"]) {
+        exclude module: 'support-annotations'
+    }
+    api rootProject.ext.dependencies["appcompat-v7"]
+    testImplementation 'junit:junit:4.12'
+    //noinspection GradleCompatible
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    api rootProject.ext.dependencies["butterknife"]
+    api rootProject.ext.dependencies["gson"]
+    api rootProject.ext.dependencies["glide"]
+    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
+    api rootProject.ext.dependencies["glide-loader-okhttp3"]
+    api rootProject.ext.dependencies["glide-annotations"]
+    //retrofit2
+    api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["retrofit-converter-gson"]
+    api rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
+    //okhttp3
+    api rootProject.ext.dependencies["okhttp3"]
+    api rootProject.ext.dependencies["logging-interceptor"]
+    //persistentCookieJar
+    //implementation "com.github.franmontiel:PersistentCookieJar:$rootProject.persistentCookieJar"
+    //dagger2
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+    api rootProject.ext.dependencies["dagger2"]
+    //implementation "org.glassfish:javax.annotation:$rootProject.annotation"
+    //recyclerViewAdapter
+    //implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.baseRecyclerViewAdapterHelper"
+    //utilcode
+    //implementation "com.blankj:utilcode:$rootProject.utilcode"
+    //logger
+    api rootProject.ext.dependencies["logger"]
+    //rxjava
+    api rootProject.ext.dependencies["rxjava2"]
+    //rxAndroid
+    api rootProject.ext.dependencies["rxandroid2"]
+    api 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    //api(name: 'sweetAlert', ext: 'aar')
+    api 'cn.pedant.sweetalert:library:1.3'
+    api 'pub.devrel:easypermissions:0.4.3'
+    api rootProject.ext.dependencies["rxlifecycle"]
+    api rootProject.ext.dependencies["rxlifecycle2-android"]
+    api rootProject.ext.dependencies["rxlifecycle2-components"]
+    api 'org.greenrobot:eventbus:3.0.0'
+    api 'com.github.chrisbanes:PhotoView:2.1.3'
+    api 'org.greenrobot:greendao:3.1.1'
+    api 'org.greenrobot:greendao-generator:3.1.0'
+   // implementation 'com.sunfusheng:FirUpdater:1.0.8'
+}
+/** 以下开始是将Android Library上传到jcenter的相关配置**/
+
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+//项目主页
+def siteUrl = 'https://github.com/CPLASF1925/test'    // project homepage
+//项目的版本控制地址
+def gitUrl = 'https://github.com/CPLASF1925/test.git' // project git
+
+//发布到组织名称名字，必须填写
+group = "cn.sy.sdk"
+//发布到JCenter上的项目名字，必须填写
+def libName = "basesdk"
+// 版本号，下次更新是只需要更改版本号即可
+version = "1.0"
+/**  上面配置后上传至jcenter后的编译路径是这样的： compile 'cn.bluemobi.dylan:sqlitelibrary:1.0'  **/
+
+//生成源文件
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+//生成文档
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    options.encoding "UTF-8"
+    options.charSet 'UTF-8'
+    options.author true
+    options.version true
+    options.links "http://docs.oracle.com/javase/7/docs/api"
+    failOnError false
+}
+
+//文档打包成jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+//拷贝javadoc文件
+task copyDoc(type: Copy) {
+    from "${buildDir}/docs/"
+    into "docs"
+}
+
+//上传到jcenter所需要的源码文件
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+// 配置maven库，生成POM.xml文件
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                name 'This is a base framework'
+                url siteUrl
+                licenses {
+                    license {
+                        name 'This is a base framework'
+                        url 'https://github.com/CPLASF1925/test'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'CPLASF1925'
+                        name 'CPLASF1925'
+                        email '1208362643@qq.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+//上传到jcenter
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")    //读取 local.properties 文件里面的 bintray.user
+    key = properties.getProperty("bintray.apikey")   //读取 local.properties 文件里面的 bintray.apikey
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = libName    //发布到JCenter上的项目名字，必须填写
+        desc = 'This is a base framework'    //项目描述
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
+//首次 gradlew install   gradlew bintrayUpload
+//修改  version    gradlew clean build bintrayUpload -PdryRun=false

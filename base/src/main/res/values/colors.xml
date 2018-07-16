@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="nine_image_text_background_color">#4D000000</color>
+    <color name="nine_image_text_color">#FFFFFF</color>
+    <!--<color name="colorPrimary">#CD1E1E</color>-->
+    <!--<color name="colorPrimaryDark">#CD1E1E</color>-->
+    <!--<color name="colorAccent">#FF4081</color>-->
+    <color name="base_bg">#ededed</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="red">#ff0000</color>
+    <color name="txt_doc_name">#D13530</color>
+    <color name="hint">#999999</color>
+    <color name="text_3">#333333</color>
+    <color name="text_6">#666666</color>
+    <color name="text_9">#999999</color>
+    <color name="dbdbdb">#dbdbdb</color>
+    <color name="main_nav_line">#a60e0c</color>
+    <color name="aeaeae">#aeaeae</color>
+    <color name="cecece">#cecece</color>
+    <color name="float_bg">#F96B32</color>
+    <color name="floatingtoolbar_text_color">#ffffff</color>
+    <color name="nav_select">#CC1C1E</color>
+    <color name="nav_select_no">#9d9d9d</color>
+    <color name="record_name_1">#E6674E</color>
+    <color name="blue">#037ce8</color>
+    <color name="record_name_2">#89CC75</color>
+    <color name="record_name_3">#F5B443</color>
+    <color name="meet_qx_bg">#fff2ee</color>
+    <color name="meet_qx_txt">#FA6D3E</color>
+    <color name="actionsheet_gray">#8F8F8F</color>
+    <color name="normal">#666666</color>
+    <color name="color_wenhao">#aaaaaa</color>
+    <color name="color_bg">#efefef</color>
+    <color name="bg_grey_dark">#f5f5f5</color>
+    <color name="notice_gonggao">#f9a327</color>
+    <color name="notice_duty">#7ab566</color>
+    <color name="notice_meet">#e13f41</color>
+    <color name="btn_red">#E6674E</color>
+    <color name="btn_yellow">#f5b443</color>
+    <color name="duty_title_gb">#f5b443</color>
+    <color name="attchement_txt">#E6674E</color>
+    <color name="un_recive_txt">#d0393a</color>
+
+    <color name="doc_type_red">#B51110</color>
+    <color name="doc_type_blue">#0CD002</color>
+    <color name="doc_type_ming">#845353</color>
+    <color name="doc_type_notice">#E11818</color>
+    <color name="doc_type_cheng">#494B4D</color>
+    <color name="doc_type_wen">#2F9461</color>
+
+
+    <!--敏行颜色设置end-->
+    <color name="ios_btntext_blue">#007aff</color>
+    <color name="text_title_11">#111111</color>
+    <color name="text_msg_33">#333333</color>
+    <color name="text_input_44">#444444</color>
+
+    <color name="text_item_33">#333333</color>
+    <color name="btn_alert">#222222</color>
+
+
+
+
+    <color name="line_dd">#dddddd</color>
+
+
+    <color name="bg_white">#ffffff</color>
+
+    <color name="text_gray">#999999</color>
+    <color name="text_gray_light">#B3B3B3</color>
+
+    <color name="text_black">#333333</color><!--正式发布时改成666666-->
+    <color name="text_black_light" >#666666</color><!--正式发布时改成666666-->
+    <color name="color_text_black">#4c4c4c</color>
+    <color name="color_tie_bg">#efeff4</color>
+
+
+
+    <color name="color_tie_normal">#ffffff</color>
+    <color name="color_tie_select">#efeff4</color>
+    <color name="dialogui_btn_normal">#ffffff</color>
+    <color name="dialogui_btn_pressed">#eeeeee</color>
+    <color name="datepick_surance_blue">#3598da</color>
+</resources>

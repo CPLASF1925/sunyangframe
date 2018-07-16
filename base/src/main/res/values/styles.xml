@@ -1,0 +1,177 @@
+<resources>
+
+    <declare-styleable name="CircleProgressView">
+        <attr name="cpv_progressNormalColor" format="color"/>
+        <attr name="cpv_progressReachColor" format="color"/>
+        <attr name="cpv_progressTextColor" format="color"/>
+        <attr name="cpv_progressTextSize" format="dimension"/>
+        <attr name="cpv_progressTextOffset" format="dimension"/>
+        <attr name="cpv_progressNormalSize" format="dimension"/>
+        <attr name="cpv_progressReachSize" format="dimension"/>
+        <attr name="cpv_radius" format="dimension"/>
+        <attr name="cpv_progressTextVisible" format="boolean"/>
+        <attr name="cpv_progressStartArc" format="integer"/>
+        <attr name="cpv_progressTextSkewX" format="dimension"/>
+        <attr name="cpv_progressTextPrefix" format="string"/>
+        <attr name="cpv_progressTextSuffix" format="string"/>
+        <attr name="cpv_innerBackgroundColor" format="color"/>
+        <attr name="cpv_progressStyle" format="enum">
+            <enum name="Normal" value="0"/>
+            <enum name="FillInner" value="1"/>
+            <enum name="FillInnerArc" value="2"/>
+        </attr>
+        <attr name="cpv_innerProgressColor" format="color"/>
+        <attr name="cpv_innerPadding" format="dimension"/>
+        <attr name="cpv_outerColor" format="color"/>
+        <attr name="cpv_outerSize" format="dimension"/>
+        <attr name="cpv_reachCapRound" format="boolean"/>
+    </declare-styleable>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="elevation">0dp</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- 自定义仿IOS的ActionSheet底部Dialog的样式 ，有模糊效果 -->
+    <style name="ActionSheetDialogStyle" parent="@android:style/Theme.Dialog">
+
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- Dialog进入及退出动画 -->
+        <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
+    </style>
+    <!-- ActionSheet进出动画 -->
+    <style name="ActionSheetDialogAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/actionsheet_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/actionsheet_dialog_out</item>
+    </style>
+    <!--<style name="Normal">-->
+        <!--<item name="text_size_10">10sp</item>-->
+        <!--<item name="text_size_11">11sp</item>-->
+        <!--<item name="text_size_12">12sp</item>-->
+        <!--<item name="text_size_13">13sp</item>-->
+        <!--<item name="text_size_14">14sp</item>-->
+        <!--<item name="text_size_15">15sp</item>-->
+        <!--<item name="text_size_16">16sp</item>-->
+        <!--<item name="text_size_17">17sp</item>-->
+        <!--<item name="text_size_18">18sp</item>-->
+        <!--<item name="text_size_19">19sp</item>-->
+        <!--<item name="text_size_20">20sp</item>-->
+        <!--<item name="text_size_21">21sp</item>-->
+        <!--<item name="text_size_22">22sp</item>-->
+        <!--<item name="text_size_23">23sp</item>-->
+        <!--<item name="text_size_24">24sp</item>-->
+        <!--<item name="text_size_25">25sp</item>-->
+        <!--<item name="text_size_26">26sp</item>-->
+        <!--<item name="text_size_27">27sp</item>-->
+        <!--<item name="text_size_28">28sp</item>-->
+    <!--</style>-->
+
+    <!--<style name="Large">-->
+        <!--<item name="text_size_10">12sp</item>-->
+        <!--<item name="text_size_11">13sp</item>-->
+        <!--<item name="text_size_12">14sp</item>-->
+        <!--<item name="text_size_13">15sp</item>-->
+        <!--<item name="text_size_14">16sp</item>-->
+        <!--<item name="text_size_15">17sp</item>-->
+        <!--<item name="text_size_16">18sp</item>-->
+        <!--<item name="text_size_17">19sp</item>-->
+        <!--<item name="text_size_18">20sp</item>-->
+        <!--<item name="text_size_19">21sp</item>-->
+        <!--<item name="text_size_20">22sp</item>-->
+        <!--<item name="text_size_21">23sp</item>-->
+        <!--<item name="text_size_22">24sp</item>-->
+        <!--<item name="text_size_23">25sp</item>-->
+        <!--<item name="text_size_24">26sp</item>-->
+        <!--<item name="text_size_25">27sp</item>-->
+        <!--<item name="text_size_26">28sp</item>-->
+        <!--<item name="text_size_27">29sp</item>-->
+        <!--<item name="text_size_28">30sp</item>-->
+    <!--</style>-->
+
+    <!--<style name="SuperLarge">-->
+        <!--<item name="text_size_10">14sp</item>-->
+        <!--<item name="text_size_11">15sp</item>-->
+        <!--<item name="text_size_12">12sp</item>-->
+        <!--<item name="text_size_13">13sp</item>-->
+        <!--<item name="text_size_14">18sp</item>-->
+        <!--<item name="text_size_15">19sp</item>-->
+        <!--<item name="text_size_16">20sp</item>-->
+        <!--<item name="text_size_17">21sp</item>-->
+        <!--<item name="text_size_18">22sp</item>-->
+        <!--<item name="text_size_19">23sp</item>-->
+        <!--<item name="text_size_20">24sp</item>-->
+        <!--<item name="text_size_21">25sp</item>-->
+        <!--<item name="text_size_22">26sp</item>-->
+        <!--<item name="text_size_23">27sp</item>-->
+        <!--<item name="text_size_24">28sp</item>-->
+        <!--<item name="text_size_25">29sp</item>-->
+        <!--<item name="text_size_26">30sp</item>-->
+        <!--<item name="text_size_27">31sp</item>-->
+        <!--<item name="text_size_28">32sp</item>-->
+    <!--</style>-->
+    <style name="dialogui_bottom_style" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialogui_enter</item>
+        //进入时的动画
+        <item name="android:windowExitAnimation">@anim/dialogui_exit</item>
+        //退出时的动画
+    </style>
+
+    <style name="dialogui_center_style" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialogui_enter_center</item>
+    </style>
+
+
+    <!-- 自定义Dialog在初始化时的样式 -->
+    <style name="dialogui_datepick_dialog_untran" parent="dialogui_datepick_tran">
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+
+    <!-- 中浅黑色字体 -->
+    <style name="dialogui_datepick_FontStyleNormalLightBlackMiddle" parent="@android:style/TextAppearance">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#ff333333</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
+    <!-- 自定义Dialog在显示时的样式 -->
+    <style name="dialogui_datepick_tran" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style>
+
+    <!-- 黑色中字体 -->
+    <style name="dialogui_datepick_fontstyle_normal_blackmiddle" parent="@android:style/TextAppearance">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- 蓝色中等字体 -->
+    <style name="dialogui_datepick_fontstyle_normal_bluemiddle" parent="@android:style/TextAppearance">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/datepick_surance_blue</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+</resources>
